@@ -13,7 +13,7 @@ When authoring [NuGet](https://www.nuget.org) packages, you can declare package 
 ## Can I target MyGet feeds?
 
 Definitely! By default, the tool is configured to query the v3 NuGet.org repository at [https://api.nuget.org/v3/index.json](https://api.nuget.org/v3/index.json).
-However, simply change the target feed URL to the v3 NuGet feed of a MyGet repository you have access to, and we'll query that one instead.
+You can simply change the target feed URL to the v3 NuGet feed of a MyGet repository you have access to, and we'll query that one instead.
 
 ## Can I target private MyGet feeds?
 
