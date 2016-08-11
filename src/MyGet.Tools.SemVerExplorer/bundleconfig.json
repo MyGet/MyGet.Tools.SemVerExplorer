@@ -11,7 +11,6 @@
   {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
-      "wwwroot/lib/typeahead.js/dist/typeahead.bundle.js",
       "wwwroot/js/site.js"
     ],
     // Optionally specify minification options
