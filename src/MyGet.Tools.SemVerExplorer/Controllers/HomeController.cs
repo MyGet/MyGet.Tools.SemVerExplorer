@@ -20,7 +20,9 @@ namespace MyGet.Tools.SemVerExplorer.Controllers
                 {
                     PackageId = model.PackageId,
                     VersionRange = model.VersionRange,
-                    FeedUrl = model.FeedUrl
+                    FeedUrl = model.FeedUrl == NuGetV3SearchService.DefaultServiceIndexUrl
+                        ? null
+                        : model.FeedUrl
                 });
             }
 
@@ -31,6 +33,10 @@ namespace MyGet.Tools.SemVerExplorer.Controllers
         public async Task<IActionResult> Index_Get(HomeViewModel model)
         {
             // Ensure we have a model
+            model.FeedUrl = !string.IsNullOrEmpty(model.FeedUrl)
+                ? model.FeedUrl
+                : NuGetV3SearchService.DefaultServiceIndexUrl;
+
             //model.PackageId = !string.IsNullOrEmpty(model.PackageId)
             //    ? model.PackageId
             //    : "EntityFramework";
@@ -50,11 +56,7 @@ namespace MyGet.Tools.SemVerExplorer.Controllers
 
                 try
                 {
-                    var feedUrl = !string.IsNullOrEmpty(model.FeedUrl)
-                        ? model.FeedUrl
-                        : NuGetV3SearchService.DefaultServiceIndexUrl;
-
-                    var searchService = new NuGetV3SearchService(feedUrl);
+                    var searchService = new NuGetV3SearchService(model.FeedUrl);
                     var versions = await searchService.AutocompleteAsync(
                         id: model.PackageId.ToLowerInvariant(), prerelease: true);
 
