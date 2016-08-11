@@ -18,19 +18,19 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label asp-for="FeedUrl">Feed URL (v3)</label>
-                                    <input type="text" class="form-control" placeholder="e.g. https://api.nuget.org/v3/index.json" asp-for="FeedUrl" />
+                                    <input type="text" class="form-control" placeholder="e.g. https://api.nuget.org/v3/index.json" asp-for="FeedUrl"/>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label asp-for="PackageId">Package id</label>
-                                    <input type="text" class="form-control wide" placeholder="e.g. EntityFramework" asp-for="PackageId" />
+                                    <input type="text" class="form-control wide" placeholder="e.g. EntityFramework" asp-for="PackageId"/>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label asp-for="VersionRange">Dependency version range</label>
-                                    <input type="text" class="form-control" placeholder="e.g. 1.0.0-beta-*" asp-for="VersionRange" />
+                                    <input type="text" class="form-control" placeholder="e.g. 1.0.0-beta-*" asp-for="VersionRange"/>
                                 </div>
                             </div>
                         </div>
@@ -42,9 +42,14 @@
                     </form>
                 </div>
                 <div class="col-md-3 hidden-xs">
-                    <img src="~/images/myget-cube.png" title="MyGet - Hosting NuGet packages, npm, Bower and VSIX" alt="MyGet - Hosting NuGet packages, npm, Bower and VSIX" />
+                    <img src="~/images/myget-cube.png" title="MyGet - Hosting NuGet packages, npm, Bower and VSIX" alt="MyGet - Hosting NuGet packages, npm, Bower and VSIX"/>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row accent-darker" style="margin: 0;">
+        <div class="col-md-12 centered">
+             New to MyGet? <a href="https://www.myget.org/">Learn more about creating your own repository containing NuGet, npm, Bower or VSIX packages &raquo;</a>
         </div>
     </div>
 }

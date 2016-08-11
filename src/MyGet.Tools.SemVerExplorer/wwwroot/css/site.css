@@ -143,18 +143,27 @@ column-count: 5;
 .jumbotron {
   color: white;
   background-color: #333;
+  margin-bottom: 0;
 }
 
-.jumbotron a, .jumotron .btn-success {
+.jumbotron a, .jumotron .btn-success, .accent-darker a {
     color: #6dd96d;
 }
 
-.accent {
-    background-color: #eee;
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.accent-darker {
+  background-color: #555;
+  color: white;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
+
+.accent {
+     background-color: #eee;
+     padding: 20px;
+     margin-top: 20px;
+     margin-bottom: 20px;
+ }
 
 .centered {
   text-align: center;
