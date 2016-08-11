@@ -153,7 +153,7 @@
 
 </div>
 
-<div class="row accent">
+<div class="row accent" style="margin: 0;">
     <div class="col-md-12 centered">
         <form class="form-inline" action="http://azug.us2.list-manage1.com/subscribe/post?u=47e1708de98684b0f393d63b3&amp;id=7e46fdf709" method="post" target="_blank">
             <h2>Stay up to date!</h2>
@@ -164,13 +164,14 @@
                     <input type="text" value="" name="EMAIL" placeholder="Your e-mail address" class="form-control"/>
                 </div>
             </div>
-            <br /><br />
+            <br/><br/>
             <input type="submit" value="Subscribe" name="subscribe" class="btn btn-success btn-lg"/>
         </form>
     </div>
 </div>
 
-<div class="container">
+<div class="container body-content">
+
 @section scripts {
     <script>
         $(function () {
@@ -179,7 +180,7 @@
                 $('#PackageId').val('EntityFramework');
             }
             if (!$('#VersionRange').val()) {
-                $('#VersionRange').val('6.0.*');
+                $('#VersionRange').val('6.1.*');
             }
             
             // Autocomplete for package id's
