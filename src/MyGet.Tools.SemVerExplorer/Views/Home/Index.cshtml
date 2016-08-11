@@ -1,0 +1,214 @@
+﻿@model MyGet.Tools.SemVerExplorer.Models.HomeViewModel
+@{
+    ViewData["Title"] = "Explore Semantic Version constraints and version ranges";
+}
+
+@section jumbotron {
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <h1>MyGet SemVer Explorer</h1>
+                    <p>
+                        New to Semantic Versioning? <a href="http://docs.nuget.org/Create/Versioning" target="_blank">Learn the basics</a>.
+                    </p>
+
+                    <form asp-controller="Home" asp-action="Index" method="POST">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="FeedUrl">Feed URL (v3)</label>
+                                    <input type="text" class="form-control" placeholder="e.g. https://api.nuget.org/v3/index.json" asp-for="FeedUrl" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="PackageId">Package id</label>
+                                    <input type="text" class="form-control wide" placeholder="e.g. EntityFramework" asp-for="PackageId" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="VersionRange">Dependency version range</label>
+                                    <input type="text" class="form-control" placeholder="e.g. 1.0.0-beta-*" asp-for="VersionRange" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-success btn-lg">Show matching versions &raquo;</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-3 hidden-xs">
+                    <img src="~/images/myget-cube.png" title="MyGet - Hosting NuGet packages, npm, Bower and VSIX" alt="MyGet - Hosting NuGet packages, npm, Bower and VSIX" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.PackageId))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Explanation of version range <em>@Model.VersionRange</em>
+            </h2>
+
+            @if (Model.NuGetVersionRange == null)
+            {
+                <p>
+                    The version range <em>@Model.VersionRange</em> is not a valid NuGet version range.
+                </p>
+            }
+            else
+            {
+                <p>
+                    The version range <em>@Model.VersionRange</em> means the package must be <em>@Model.NuGetVersionRange.PrettyPrint().TrimStart('(').TrimEnd(')')</em>.
+                </p>
+            }
+
+            <h2>Versions of <em>@Model.PackageId</em> matching <em>@Model.VersionRange</em></h2>
+
+            @if (Model.NuGetVersionRange != null)
+            {
+                var bestMatch = Model.NuGetVersionRange.FindBestMatch(Model.Versions);
+                if (bestMatch != null)
+                {
+                    <p>
+                        The version of <em>@Model.PackageId</em> that best matches <em>@Model.VersionRange</em> is
+                        <span class="label label-success">@bestMatch</span>.
+                    </p>
+                }
+            }
+
+            @if (Model.Versions.Any())
+            {
+                <ul class="list-unstyled multicolumn">
+                    @foreach (var version in Model.Versions.OrderBy(v => v))
+                    {
+                        <li>
+                            @{
+                                var matches = false;
+                                if (Model.NuGetVersionRange != null)
+                                {
+                                    if (Model.NuGetVersionRange.IsFloating && Model.NuGetVersionRange.Float.Satisfies(version))
+                                    {
+                                        matches = true;
+                                    }
+                                    else if (!Model.NuGetVersionRange.IsFloating && Model.NuGetVersionRange.Satisfies(version))
+                                    {
+                                        matches = true;
+                                    }
+                                }
+                            }
+
+                            <span class="label label-@(matches ? "success" : "default")">@version</span>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>
+                    No versions of <em>@Model.PackageId</em> were found.
+                </p>
+            }
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>How do I...?</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h4>Include everything greater than a particular version in the same range (no prereleases)</h4>
+        <ul class="list-unstyled">
+            <li>Same major range: <a href="/try/EntityFramework/6.*"><code>6.*</code></a></li>
+            <li>Same minor range: <a href="/try/EntityFramework/6.1.*"><code>6.1.*</code></a></li>
+        </ul>
+    </div>
+
+    <div class="col-md-4">
+        <h4>Include all prerelease packages within the same range</h4>
+        <ul class="list-unstyled">
+            <li>Same minor range: <a href="/try/Microsoft.AspNet.WebApi/5.2.2-*"><code>5.2.2-*</code></a></li>
+        </ul>
+    </div>
+
+    <div class="col-md-4">
+        <h4>Specify a version interval</h4>
+        <ul class="list-unstyled">
+            <li>8.0 &lt; x &lt; 9.0.1: <a href="/try/Newtonsoft.Json/(8.0,9.0.1)"><code>(8.0,9.0.1)</code></a></li>
+            <li>8.0 &lt; x &le; 9.0.1: <a href="/try/Newtonsoft.Json/(8.0,9.0.1]"><code>(8.0,9.0.1]</code></a></li>
+            <li><a href="http://docs.nuget.org/Create/Versioning" target="_blank">more examples &raquo;</a></li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+<div class="row accent">
+    <div class="col-md-12 centered">
+        <form class="form-inline" action="http://azug.us2.list-manage1.com/subscribe/post?u=47e1708de98684b0f393d63b3&amp;id=7e46fdf709" method="post" target="_blank">
+            <h2>Stay up to date!</h2>
+            <p>Be among the first to know about upcoming features, tips and tricks and news around MyGet</p>
+            <div class="form-group centered">
+                <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></div>
+                    <input type="text" value="" name="EMAIL" placeholder="Your e-mail address" class="form-control"/>
+                </div>
+            </div>
+            <br /><br />
+            <input type="submit" value="Subscribe" name="subscribe" class="btn btn-success btn-lg"/>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+@section scripts {
+    <script>
+        $(function () {
+            // When no data is given, set some defaults
+            if (!$('#PackageId').val()) {
+                $('#PackageId').val('EntityFramework');
+            }
+            if (!$('#VersionRange').val()) {
+                $('#VersionRange').val('6.0.*');
+            }
+            
+            // Autocomplete for package id's
+            var packageIds = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/Home/Autocomplete/%QUERY',
+                    wildcard: '%QUERY',
+                    replace: function (url, query) {
+                        // Build base query
+                        url = url.replace('%QUERY', encodeURIComponent(query));
+
+                        // Mix in package source?
+                        var feedUrl = $('#FeedUrl').val();
+                        if (feedUrl) {
+                            url += '?FeedUrl=' + feedUrl;
+                        }
+
+                        return url;
+                    }
+                }
+            });
+
+            $('#PackageId').typeahead(null, {
+                source: packageIds,
+                minLength: 3,
+                limit: 10
+            });
+        });
+    </script>
+}
