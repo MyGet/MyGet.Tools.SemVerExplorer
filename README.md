@@ -8,4 +8,4 @@ When working with [NuGet](https://www.nuget.org), dependency versions can be exp
 
 [MyGet SemVer Explorer](http://semver.myget.org) allows you to specify a SemVer dependency range, and will show the package versions that match.
 
-![https://raw.githubusercontent.com/MyGet/MyGet.Tools.SemVerExplorer/master/assets/homepage.png]()
+![https://raw.githubusercontent.com/MyGet/MyGet.Tools.SemVerExplorer/master/assets/homepage.png](https://raw.githubusercontent.com/MyGet/MyGet.Tools.SemVerExplorer/master/assets/homepage.png)
