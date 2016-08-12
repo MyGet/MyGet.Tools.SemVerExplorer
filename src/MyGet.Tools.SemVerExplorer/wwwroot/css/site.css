@@ -177,6 +177,12 @@ column-count: 5;
   text-indent: -9999px;
   display: block;
   width: 250px;
+  margin-left: -5px !important;
+}
+
+.navbar a.btn-success {
+    color: white;
+    margin-top: 5px;
 }
 
 .navbar-gradient {
