@@ -7,13 +7,17 @@
     <title>@ViewData["Title"] - MyGet SemVer Explorer</title>
 
     <environment names="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css"/>
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"
+              asp-fallback-href="~/lib/font-awesome/css/font-awesome.css"
+              asp-fallback-test-class="fa" asp-fallback-test-property="display" asp-fallback-test-value="inline-block"/>
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
@@ -47,7 +51,12 @@
             <p>
                 Brought to you by <a href="http://www.myget.org">MyGet</a> - Hosting your NuGet, Npm, Bower and Vsix packages
 
-                <span class="pull-right"><a href="https://github.com/MyGet/MyGet.Tools.SemVerExplorer" target="_blank">Contribute on GitHub</a></span>
+                <span class="pull-right">
+                    <a href="https://github.com/MyGet/MyGet.Tools.SemVerExplorer" target="_blank">
+                        <i class="fa fa-github fa-1g githubicon" aria-hidden="true"></i>
+                        Contribute on GitHub
+                    </a>
+                </span>
             </p>
         </footer>
     </div>
