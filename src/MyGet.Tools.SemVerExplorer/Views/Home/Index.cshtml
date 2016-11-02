@@ -63,14 +63,14 @@
 
             @if (Model.NuGetVersionRange == null)
             {
-                <p>
+                <p class="alert alert-danger">
                     The version range <em>@Model.VersionRange</em> is not a valid NuGet version range.
                 </p>
             }
             else
             {
-                <p>
-                    The version range <em>@Model.VersionRange</em> means the package must be <em>@Model.NuGetVersionRange.PrettyPrint().TrimStart('(').TrimEnd(')')</em>.
+                <p class="alert alert-info">
+                  The version range <em>@Model.VersionRange</em> means the package must be <em>@Model.NuGetVersionRange.PrettyPrint().TrimStart('(').TrimEnd(')')</em>.
                 </p>
             }
 
